@@ -1,0 +1,963 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F9F5EE;
+    --parchment: #EDE5D4;
+    --brown-dark: #3D2B1F;
+    --brown-mid: #6B4A30;
+    --brown-light: #A07850;
+    --red-accent: #C0392B;
+    --jade: #2E7D52;
+    --jade-light: #4CAF80;
+    --gold: #C8A84B;
+    --text-main: #2C1810;
+    --text-muted: #7A5C48;
+  }
+
+  .site {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding-bottom: 2rem;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--brown-dark);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .logo span { color: #fff; font-weight: 300; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.2s;
+    border: none; background: none; padding: 0;
+  }
+  .nav-links a.active, .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    background: var(--brown-dark);
+    padding: 3.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 80px);
+    pointer-events: none;
+  }
+  .hero-text { flex: 1; position: relative; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--red-accent);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--brown-dark);
+    border: none;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 24px;
+    font-size: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-visual {
+    flex-shrink: 0;
+    position: relative;
+  }
+  .herb-circle {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--brown-mid);
+    border: 3px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .herb-icon { font-size: 56px; line-height: 1; }
+  .herb-circle-label {
+    color: var(--gold);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+  }
+
+  /* SEASON BANNER */
+  .season-banner {
+    background: var(--jade);
+    padding: 0.75rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .season-label {
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .season-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .season-tag {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .season-tag:hover, .season-tag.active { background: rgba(255,255,255,0.3); }
+
+  /* MAIN CONTENT */
+  .content-area { padding: 2rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--brown-dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 20px;
+    background: var(--red-accent);
+    border-radius: 2px;
+  }
+  .see-all {
+    color: var(--brown-light);
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  /* RECIPE CARDS */
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .recipe-card {
+    background: #fff;
+    border: 0.5px solid var(--parchment);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .recipe-card:hover { transform: translateY(-2px); }
+  .recipe-thumb {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    position: relative;
+  }
+  .recipe-thumb.warm { background: #FBF0E0; }
+  .recipe-thumb.cool { background: #E8F5EE; }
+  .recipe-thumb.red { background: #FDECEC; }
+  .recipe-diff {
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: #fff;
+  }
+  .diff-easy { background: var(--jade); }
+  .diff-med { background: var(--brown-light); }
+  .recipe-info { padding: 10px 12px 12px; }
+  .recipe-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .recipe-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .recipe-tag {
+    background: var(--parchment);
+    color: var(--brown-mid);
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  .recipe-time {
+    color: var(--text-muted);
+    font-size: 11px;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* HERB CARDS */
+  .herb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .herb-card {
+    background: #fff;
+    border: 0.5px solid var(--parchment);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+  .herb-card:hover { border-color: var(--gold); }
+  .herb-card.featured { border: 1.5px solid var(--gold); }
+  .herb-of-day {
+    position: absolute;
+    top: -8px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--brown-dark);
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+  .herb-emoji { font-size: 36px; margin: 8px 0 8px; display: block; }
+  .herb-cn {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 2px;
+  }
+  .herb-en { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+  .herb-effect {
+    background: var(--parchment);
+    color: var(--brown-mid);
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* QUICK TIPS */
+  .tips-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .tip-card {
+    background: var(--brown-dark);
+    border-radius: 8px;
+    padding: 1.25rem;
+    color: #fff;
+  }
+  .tip-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .tip-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .tip-body { font-size: 12px; color: rgba(255,255,255,0.7); line-height: 1.7; }
+
+  /* MODAL */
+  .modal-bg {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    font-size: 22px;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+  }
+  .modal-emoji { font-size: 48px; text-align: center; display: block; margin-bottom: 1rem; }
+  .modal-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 0.5rem;
+  }
+  .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .modal-section { margin-bottom: 1rem; }
+  .modal-section-title {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--brown-light);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .modal-section-body { font-size: 14px; color: var(--text-main); line-height: 1.8; }
+  .modal-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .modal-tag {
+    background: var(--parchment);
+    color: var(--brown-mid);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .divider { height: 0.5px; background: var(--parchment); margin: 1rem 0; }
+
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERB LIBRARY PAGE */
+  .search-bar {
+    background: #fff;
+    border: 1px solid var(--parchment);
+    border-radius: 6px;
+    padding: 10px 14px;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+    margin-bottom: 1.5rem;
+    outline: none;
+    color: var(--text-main);
+  }
+  .search-bar:focus { border-color: var(--brown-light); }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .filter-btn {
+    background: #fff;
+    border: 0.5px solid var(--parchment);
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--brown-dark);
+    color: var(--gold);
+    border-color: var(--brown-dark);
+  }
+  .herb-library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  /* RECIPE PAGE */
+  .recipe-full-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+  .recipe-full-card {
+    background: #fff;
+    border: 0.5px solid var(--parchment);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .recipe-full-card:hover { transform: translateY(-3px); }
+  .recipe-full-thumb {
+    height: 120px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 52px;
+    position: relative;
+  }
+  .recipe-full-info { padding: 12px 14px 14px; }
+  .recipe-full-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 6px;
+  }
+  .recipe-full-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+  .recipe-tags-row { display: flex; gap: 4px; flex-wrap: wrap; }
+  .r-tag {
+    background: var(--parchment);
+    color: var(--brown-mid);
+    font-size: 10px;
+    padding: 2px 6px; border-radius: 2px;
+  }
+</style>
+
+<div class="site">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">中藥食補教室 — 中藥材食補料理教學與中藥介紹互動網站</h2>
+
+  <nav>
+    <div class="logo">中藥<span>食補</span>教室</div>
+    <div class="nav-links">
+      <a class="active" onclick="showPage('home',this)">首頁</a>
+      <a onclick="showPage('recipes',this)">食補料理</a>
+      <a onclick="showPage('herbs',this)">藥材百科</a>
+      <a onclick="showPage('tips',this)">養生指南</a>
+    </div>
+  </nav>
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">節氣養生 × 食補調理</div>
+        <h1>用<em>天然藥材</em><br>守護全家健康</h1>
+        <p>從日常料理出發，結合傳統中醫智慧，讓忙碌的上班族與家庭主婦也能輕鬆入門，每天吃出好體質。</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('recipes', document.querySelector('.nav-links a:nth-child(2)'))">探索食補食譜</button>
+          <button class="btn-outline" onclick="showPage('herbs', document.querySelector('.nav-links a:nth-child(3)'))">認識中藥材</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="herb-circle">
+          <span class="herb-icon">🫖</span>
+          <span class="herb-circle-label">以食為藥</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="season-banner">
+      <span class="season-label">當季推薦</span>
+      <div class="season-tags">
+        <span class="season-tag active">夏季清熱</span>
+        <span class="season-tag">祛濕消暑</span>
+        <span class="season-tag">提升免疫</span>
+        <span class="season-tag">補氣養血</span>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="section-header">
+        <div class="section-title">本週精選食譜</div>
+        <button class="see-all" onclick="showPage('recipes', document.querySelector('.nav-links a:nth-child(2)'))">全部食譜 →</button>
+      </div>
+      <div class="recipe-grid">
+        <div class="recipe-card" onclick="openRecipe('四神湯')">
+          <div class="recipe-thumb warm">🍲
+            <span class="recipe-diff diff-easy">簡單</span>
+          </div>
+          <div class="recipe-info">
+            <div class="recipe-name">四神湯</div>
+            <div class="recipe-meta">
+              <span class="recipe-tag">健脾補腎</span>
+              <span class="recipe-tag">去濕</span>
+            </div>
+            <div class="recipe-time">⏱ 60 分鐘</div>
+          </div>
+        </div>
+        <div class="recipe-card" onclick="openRecipe('黃耆紅棗雞湯')">
+          <div class="recipe-thumb red">🍗
+            <span class="recipe-diff diff-easy">簡單</span>
+          </div>
+          <div class="recipe-info">
+            <div class="recipe-name">黃耆紅棗雞湯</div>
+            <div class="recipe-meta">
+              <span class="recipe-tag">補氣養血</span>
+            </div>
+            <div class="recipe-time">⏱ 90 分鐘</div>
+          </div>
+        </div>
+        <div class="recipe-card" onclick="openRecipe('決明子菊花茶')">
+          <div class="recipe-thumb cool">🍵
+            <span class="recipe-diff diff-easy">簡單</span>
+          </div>
+          <div class="recipe-info">
+            <div class="recipe-name">決明子菊花茶</div>
+            <div class="recipe-meta">
+              <span class="recipe-tag">清肝明目</span>
+            </div>
+            <div class="recipe-time">⏱ 10 分鐘</div>
+          </div>
+        </div>
+        <div class="recipe-card" onclick="openRecipe('枸杞山藥粥')">
+          <div class="recipe-thumb warm">🥣
+            <span class="recipe-diff diff-med">中等</span>
+          </div>
+          <div class="recipe-info">
+            <div class="recipe-name">枸杞山藥粥</div>
+            <div class="recipe-meta">
+              <span class="recipe-tag">滋陰補腎</span>
+            </div>
+            <div class="recipe-time">⏱ 45 分鐘</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">常用藥材速查</div>
+        <button class="see-all" onclick="showPage('herbs', document.querySelector('.nav-links a:nth-child(3)'))">藥材百科 →</button>
+      </div>
+      <div class="herb-grid">
+        <div class="herb-card featured" onclick="openHerb('紅棗')">
+          <div class="herb-of-day">今日藥材</div>
+          <span class="herb-emoji">🔴</span>
+          <div class="herb-cn">紅棗</div>
+          <div class="herb-en">Red Jujube</div>
+          <span class="herb-effect">補氣養血</span>
+        </div>
+        <div class="herb-card" onclick="openHerb('枸杞')">
+          <span class="herb-emoji">🫐</span>
+          <div class="herb-cn">枸杞</div>
+          <div class="herb-en">Wolfberry</div>
+          <span class="herb-effect">滋補肝腎</span>
+        </div>
+        <div class="herb-card" onclick="openHerb('黃耆')">
+          <span class="herb-emoji">🌿</span>
+          <div class="herb-cn">黃耆</div>
+          <div class="herb-en">Astragalus</div>
+          <span class="herb-effect">補氣固表</span>
+        </div>
+        <div class="herb-card" onclick="openHerb('當歸')">
+          <span class="herb-emoji">🌾</span>
+          <div class="herb-cn">當歸</div>
+          <div class="herb-en">Angelica Root</div>
+          <span class="herb-effect">補血活血</span>
+        </div>
+        <div class="herb-card" onclick="openHerb('茯苓')">
+          <span class="herb-emoji">🍄</span>
+          <div class="herb-cn">茯苓</div>
+          <div class="herb-en">Poria</div>
+          <span class="herb-effect">健脾安神</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">養生小知識</div>
+      </div>
+      <div class="tips-row">
+        <div class="tip-card">
+          <span class="tip-icon">🌅</span>
+          <div class="tip-title">早晨一杯薑茶</div>
+          <div class="tip-body">生薑暖胃散寒，早晨空腹飲用可促進腸胃蠕動，特別適合手腳冰冷的上班族。</div>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">💧</span>
+          <div class="tip-title">藥膳不是苦藥</div>
+          <div class="tip-body">正確的藥膳料理帶有天然甘甜，入菜不苦口，輕鬆融入三餐，全家老少都能享用。</div>
+        </div>
+        <div class="tip-card">
+          <span class="tip-icon">🛒</span>
+          <div class="tip-title">中藥材怎麼買</div>
+          <div class="tip-body">建議選購顏色自然、無異味、包裝完整的藥材，中藥行、農會、有機超市均可購得。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPES PAGE -->
+  <div id="page-recipes" class="page">
+    <div style="background: var(--brown-dark); padding: 2rem; margin-bottom: 0;">
+      <div style="font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 700; color: var(--gold); margin-bottom: 6px;">食補料理教學</div>
+      <div style="color: rgba(255,255,255,0.6); font-size: 13px;">從簡單湯品到進階藥膳，找到最適合你家的食補食譜</div>
+    </div>
+    <div style="background: var(--jade); padding: 0.75rem 2rem; display: flex; gap: 8px; flex-wrap: wrap;">
+      <span class="filter-btn active" onclick="filterRecipe(this,'all')">全部</span>
+      <span class="filter-btn" onclick="filterRecipe(this,'湯品')">湯品燉煮</span>
+      <span class="filter-btn" onclick="filterRecipe(this,'茶飲')">養生茶飲</span>
+      <span class="filter-btn" onclick="filterRecipe(this,'粥品')">粥品主食</span>
+      <span class="filter-btn" onclick="filterRecipe(this,'甜點')">滋補甜點</span>
+    </div>
+    <div class="content-area">
+      <div class="recipe-full-grid" id="recipe-full-grid">
+        <div class="recipe-full-card" data-cat="湯品" onclick="openRecipe('四神湯')">
+          <div class="recipe-full-thumb warm">🍲</div>
+          <div class="recipe-full-info">
+            <div class="recipe-full-name">四神湯</div>
+            <div class="recipe-full-desc">蓮子、芡實、茯苓、薏仁四味藥材搭配豬腸，健脾補腎、改善消化。</div>
+            <div class="recipe-tags-row"><span class="r-tag">湯品</span><span class="r-tag">健脾</span><span class="r-tag">60min</span></div>
+          </div>
+        </div>
+        <div class="recipe-full-card" data-cat="湯品" onclick="openRecipe('黃耆紅棗雞湯')">
+          <div class="recipe-full-thumb red">🍗</div>
+          <div class="recipe-full-info">
+            <div class="recipe-full-name">黃耆紅棗雞湯</div>
+            <div class="recipe-full-desc">上班族的補氣聖品，增強免疫力、改善疲勞，電鍋就能輕鬆完成。</div>
+            <div class="recipe-tags-row"><span class="r-tag">湯品</span><span class="r-tag">補氣</span><span class="r-tag">90min</span></div>
+          </div>
+        </div>
+        <div class="recipe-full-card" data-cat="茶飲" onclick="openRecipe('決明子菊花茶')">
+          <div class="recipe-full-thumb cool">🍵</div>
+          <div class="recipe-full-info">
+            <div class="recipe-full-name">決明子菊花茶</div>
+            <div class="recipe-full-desc">久盯螢幕的辦公室首選，清熱解毒、護眼明目，10分鐘就完成。</div>
+            <div class="recipe-tags-row"><span class="r-tag">茶飲</span><span class="r-tag">護眼</span><span class="r-tag">10min</span></div>
+          </div>
+        </div>
+        <div class="recipe-full-card" data-cat="粥品" onclick="openRecipe('枸杞山藥粥')">
+          <div class="recipe-full-thumb warm">🥣</div>
+          <div class="recipe-full-info">
+            <div class="recipe-full-name">枸杞山藥粥</div>
+            <div class="recipe-full-desc">滋陰補腎、養胃健脾，適合作為早餐，老少皆宜的溫潤粥品。</div>
+            <div class="recipe-tags-row"><span class="r-tag">粥品</span><span class="r-tag">滋陰</span><span class="r-tag">45min</span></div>
+          </div>
+        </div>
+        <div class="recipe-full-card" data-cat="甜點" onclick="openRecipe('桂圓紅棗銀耳湯')">
+          <div class="recipe-full-thumb" style="background:#FDF0F8;">🍮</div>
+          <div class="recipe-full-info">
+            <div class="recipe-full-name">桂圓紅棗銀耳湯</div>
+            <div class="recipe-full-desc">女性補血養顏的甜點首選，豐富膠質讓肌膚水潤有光澤。</div>
+            <div class="recipe-tags-row"><span class="r-tag">甜點</span><span class="r-tag">養顏</span><span class="r-tag">50min</span></div>
+          </div>
+        </div>
+        <div class="recipe-full-card" data-cat="茶飲" onclick="openRecipe('黑糖薑棗茶')">
+          <div class="recipe-full-thumb warm">☕</div>
+          <div class="recipe-full-info">
+            <div class="recipe-full-name">黑糖薑棗茶</div>
+            <div class="recipe-full-desc">暖宮散寒的冬日熱飲，舒緩生理期不適，香甜不苦澀。</div>
+            <div class="recipe-tags-row"><span class="r-tag">茶飲</span><span class="r-tag">暖身</span><span class="r-tag">15min</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERBS PAGE -->
+  <div id="page-herbs" class="page">
+    <div style="background: var(--brown-dark); padding: 2rem;">
+      <div style="font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 700; color: var(--gold); margin-bottom: 6px;">中藥材百科</div>
+      <div style="color: rgba(255,255,255,0.6); font-size: 13px;">了解每種藥材的特性、功效與日常應用方式</div>
+    </div>
+    <div class="content-area">
+      <input class="search-bar" placeholder="🔍 搜尋藥材名稱（如：枸杞、黃耆…）" oninput="searchHerbs(this.value)" />
+      <div class="filter-row" id="herb-filters">
+        <span class="filter-btn active" onclick="filterHerb(this,'all')">全部</span>
+        <span class="filter-btn" onclick="filterHerb(this,'補氣')">補氣類</span>
+        <span class="filter-btn" onclick="filterHerb(this,'補血')">補血類</span>
+        <span class="filter-btn" onclick="filterHerb(this,'清熱')">清熱類</span>
+        <span class="filter-btn" onclick="filterHerb(this,'健脾')">健脾類</span>
+        <span class="filter-btn" onclick="filterHerb(this,'安神')">安神類</span>
+      </div>
+      <div class="herb-library-grid" id="herb-lib-grid">
+      </div>
+    </div>
+  </div>
+
+  <!-- TIPS PAGE -->
+  <div id="page-tips" class="page">
+    <div style="background: var(--jade); padding: 2rem;">
+      <div style="font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 6px;">養生指南</div>
+      <div style="color: rgba(255,255,255,0.7); font-size: 13px;">按體質、季節、族群分類的專屬養生建議</div>
+    </div>
+    <div class="content-area">
+      <div class="section-header"><div class="section-title">依體質選食補</div></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+        <div style="background:#fff; border: 0.5px solid var(--parchment); border-radius: 8px; padding: 1.25rem; cursor: pointer;" onclick="openConstitution('氣虛體質')">
+          <div style="font-size: 28px; margin-bottom: 8px;">😮‍💨</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--brown-dark); margin-bottom:4px;">氣虛體質</div>
+          <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">容易疲倦、氣短、說話無力</div>
+          <div style="margin-top:10px;"><span style="background:var(--parchment);color:var(--brown-mid);font-size:10px;padding:2px 8px;border-radius:2px;">黃耆・黨參・紅棗</span></div>
+        </div>
+        <div style="background:#fff; border: 0.5px solid var(--parchment); border-radius: 8px; padding: 1.25rem; cursor: pointer;" onclick="openConstitution('血虛體質')">
+          <div style="font-size: 28px; margin-bottom: 8px;">🌸</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--brown-dark); margin-bottom:4px;">血虛體質</div>
+          <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">臉色蒼白、失眠多夢、月經不調</div>
+          <div style="margin-top:10px;"><span style="background:var(--parchment);color:var(--brown-mid);font-size:10px;padding:2px 8px;border-radius:2px;">當歸・熟地・桂圓</span></div>
+        </div>
+        <div style="background:#fff; border: 0.5px solid var(--parchment); border-radius: 8px; padding: 1.25rem; cursor: pointer;" onclick="openConstitution('濕熱體質')">
+          <div style="font-size: 28px; margin-bottom: 8px;">🥵</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--brown-dark); margin-bottom:4px;">濕熱體質</div>
+          <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">皮膚油膩、口苦、長痘痘</div>
+          <div style="margin-top:10px;"><span style="background:var(--parchment);color:var(--brown-mid);font-size:10px;padding:2px 8px;border-radius:2px;">薏仁・菊花・蒲公英</span></div>
+        </div>
+        <div style="background:#fff; border: 0.5px solid var(--parchment); border-radius: 8px; padding: 1.25rem; cursor: pointer;" onclick="openConstitution('陽虛體質')">
+          <div style="font-size: 28px; margin-bottom: 8px;">🥶</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--brown-dark); margin-bottom:4px;">陽虛體質</div>
+          <div style="font-size:12px; color:var(--text-muted); line-height:1.6;">手腳冰冷、怕冷、精神不振</div>
+          <div style="margin-top:10px;"><span style="background:var(--parchment);color:var(--brown-mid);font-size:10px;padding:2px 8px;border-radius:2px;">肉桂・乾薑・附子</span></div>
+        </div>
+      </div>
+
+      <div class="section-header"><div class="section-title">上班族專區</div></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2.5rem;">
+        <div style="background: var(--brown-dark); border-radius: 8px; padding: 1.25rem; color:#fff;">
+          <div style="font-size:22px; margin-bottom:8px;">💻</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--gold); margin-bottom:6px;">護眼抗藍光</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.7;">決明子茶 + 枸杞，每日一杯，保護長時間使用電腦的眼睛。</div>
+        </div>
+        <div style="background: var(--brown-dark); border-radius: 8px; padding: 1.25rem; color:#fff;">
+          <div style="font-size:22px; margin-bottom:8px;">😴</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--gold); margin-bottom:6px;">改善睡眠品質</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.7;">酸棗仁湯 + 茯神，睡前一碗，緩解壓力、幫助入眠。</div>
+        </div>
+        <div style="background: var(--brown-dark); border-radius: 8px; padding: 1.25rem; color:#fff;">
+          <div style="font-size:22px; margin-bottom:8px;">🧘</div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--gold); margin-bottom:6px;">抗壓解鬱</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.7); line-height:1.7;">玫瑰花茶 + 合歡皮，舒緩情緒緊繃、調整自律神經。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <span class="modal-emoji" id="modal-emoji"></span>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-sub" id="modal-sub"></div>
+    <div class="divider"></div>
+    <div id="modal-content"></div>
+    <div style="margin-top: 1.25rem;">
+      <button class="btn-primary" style="width:100%; font-family:'Noto Sans TC',sans-serif;" onclick="askClaude()">問 AI 更多問題 ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const herbData = {
+  '紅棗': { emoji: '🔴', en: 'Red Jujube', cat: '補血', effect: '補氣養血、健脾和胃', nature: '性溫、味甘', meridian: '脾、胃經', usage: '每日食用 6-12 顆為宜，可直接食用、入湯、泡茶或熬粥。注意：痰濕者不宜過量食用。', recipes: ['黃耆紅棗雞湯', '桂圓紅棗銀耳湯', '黑糖薑棗茶'] },
+  '枸杞': { emoji: '🫐', en: 'Wolfberry', cat: '補血', effect: '滋補肝腎、明目潤肺', nature: '性平、味甘', meridian: '肝、腎、肺經', usage: '每日食用 15-30g，可泡茶、入粥、做菜。外感發熱及腹瀉者暫停食用。', recipes: ['枸杞山藥粥', '決明子菊花茶'] },
+  '黃耆': { emoji: '🌿', en: 'Astragalus', cat: '補氣', effect: '補氣固表、托毒生肌', nature: '性微溫、味甘', meridian: '脾、肺經', usage: '每日用量 9-30g，煎湯或泡茶飲用。陰虛陽亢、感冒發熱者不宜使用。', recipes: ['黃耆紅棗雞湯'] },
+  '當歸': { emoji: '🌾', en: 'Angelica Root', cat: '補血', effect: '補血活血、調經止痛', nature: '性溫、味甘辛', meridian: '心、肝、脾經', usage: '每日用量 6-12g，常與其他補血藥材同用，不宜大量單獨使用。孕早期需謹慎。', recipes: ['當歸羊肉湯'] },
+  '茯苓': { emoji: '🍄', en: 'Poria', cat: '健脾', effect: '健脾和胃、寧心安神', nature: '性平、味甘淡', meridian: '心、脾、腎經', usage: '每日用量 9-15g，可磨粉加入食品，也可入湯。虛寒精滑者慎服。', recipes: ['四神湯', '茯苓糕'] },
+  '薏仁': { emoji: '🌰', en: 'Job\'s Tears', cat: '健脾', effect: '健脾去濕、清熱排膿', nature: '性涼、味甘淡', meridian: '脾、胃、肺經', usage: '每日 30-60g，煮粥、煮湯均可。孕婦禁用，脾虛便溏者少用。', recipes: ['四神湯', '薏仁綠豆湯'] },
+  '菊花': { emoji: '💐', en: 'Chrysanthemum', cat: '清熱', effect: '清熱解毒、平肝明目', nature: '性微寒、味甘苦', meridian: '肺、肝經', usage: '每日用量 9-15g，泡茶最為常見，也可入菜。氣虛胃寒者不宜多飲。', recipes: ['決明子菊花茶'] },
+  '決明子': { emoji: '🟤', en: 'Cassia Seed', cat: '清熱', effect: '清肝明目、潤腸通便', nature: '性微寒、味苦甘鹹', meridian: '肝、大腸經', usage: '每日 9-15g，炒製後泡茶效果更佳。脾胃虛寒、泄瀉者不宜使用。', recipes: ['決明子菊花茶'] },
+  '酸棗仁': { emoji: '🫘', en: 'Ziziphus Seed', cat: '安神', effect: '養心安神、生津止汗', nature: '性平、味甘酸', meridian: '心、肝、膽經', usage: '每日 9-18g，睡前煎湯服用效果最佳。實邪鬱火者慎服。', recipes: ['酸棗仁湯'] },
+  '桂圓': { emoji: '🟡', en: 'Longan', cat: '補血', effect: '補益心脾、養血安神', nature: '性溫、味甘', meridian: '心、脾經', usage: '每日食用 9-15g，可直接食用、泡茶或入湯。痰火及濕滯停飲者忌服。', recipes: ['桂圓紅棗銀耳湯'] },
+};
+
+const recipeData = {
+  '四神湯': { emoji: '🍲', desc: '傳統台灣家常藥膳湯品', ingredients: '豬小腸 300g、蓮子 30g、芡實 30g、茯苓 30g、山藥 50g、薏仁 30g', steps: '1. 豬腸洗淨切段汆燙備用\n2. 所有藥材洗淨、薏仁提前泡水 30 分鐘\n3. 全部食材放入鍋中，加水 1500ml\n4. 大火煮開後轉小火燉煮 60 分鐘\n5. 加鹽、米酒調味即可', effect: '健脾補腎、去濕消脹、改善消化不良' },
+  '黃耆紅棗雞湯': { emoji: '🍗', desc: '補氣增免疫力的首選湯品', ingredients: '雞腿 2 隻、黃耆 30g、紅棗 10 顆、枸杞 15g、薑片 3 片', steps: '1. 雞腿洗淨汆燙去腥備用\n2. 黃耆、紅棗洗淨\n3. 全部放入電鍋內鍋，加水 800ml\n4. 外鍋加 2 杯水蒸煮\n5. 加鹽調味，最後加入枸杞悶 5 分鐘', effect: '補氣固表、提升免疫力、改善疲勞感' },
+  '決明子菊花茶': { emoji: '🍵', desc: '上班族護眼養肝的日常茶飲', ingredients: '決明子 10g、杭菊花 5g、枸杞 8g、蜂蜜少許', steps: '1. 決明子用乾鍋小火炒香\n2. 菊花、枸杞洗淨\n3. 將食材放入保溫杯\n4. 注入 300ml 沸水\n5. 悶泡 5 分鐘後，可依喜好加蜂蜜', effect: '清肝明目、清熱解毒，適合久盯螢幕的現代人' },
+  '枸杞山藥粥': { emoji: '🥣', desc: '溫潤滋補的每日元氣早餐', ingredients: '白米 100g、山藥 150g、枸杞 20g、冰糖少許', steps: '1. 白米洗淨，加水 1000ml 熬粥\n2. 山藥去皮切塊\n3. 粥煮開後加入山藥\n4. 小火繼續燉 20 分鐘至粥濃稠\n5. 加入枸杞再煮 5 分鐘，加冰糖調味', effect: '滋陰補腎、養胃健脾，老少皆宜' },
+  '桂圓紅棗銀耳湯': { emoji: '🍮', desc: '女性補血養顏的甜湯聖品', ingredients: '銀耳 1 朵、桂圓 20g、紅棗 8 顆、冰糖 30g', steps: '1. 銀耳泡發洗淨，撕成小朵\n2. 所有食材放入鍋中，加水 1200ml\n3. 大火煮開後轉小火燉 40 分鐘\n4. 加冰糖調味，攪拌至溶化\n5. 可冷藏後食用，口感更佳', effect: '補血養顏、滋陰潤肺，增加皮膚水潤度' },
+  '黑糖薑棗茶': { emoji: '☕', desc: '暖宮散寒的冬日必備熱飲', ingredients: '老薑 30g、紅棗 6 顆、黑糖 20g、水 500ml', steps: '1. 老薑洗淨切片\n2. 紅棗洗淨去核\n3. 薑片和紅棗放入鍋中加水\n4. 大火煮開後小火煮 10 分鐘\n5. 加黑糖攪拌至溶化即可趁熱飲用', effect: '暖宮散寒、活血化瘀，舒緩生理期不適' },
+};
+
+function showPage(page, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if (el) el.classList.add('active');
+  if (page === 'herbs') renderHerbLib('all', '');
+}
+
+function openRecipe(name) {
+  const d = recipeData[name];
+  if (!d) return;
+  document.getElementById('modal-emoji').textContent = d.emoji;
+  document.getElementById('modal-title').textContent = name;
+  document.getElementById('modal-sub').textContent = d.desc;
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">食材用量</div>
+      <div class="modal-section-body">${d.ingredients}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">步驟說明</div>
+      <div class="modal-section-body" style="white-space:pre-line;">${d.steps}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">食補功效</div>
+      <div class="modal-section-body" style="color:var(--jade); font-weight:500;">${d.effect}</div>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+  window._currentItem = name;
+}
+
+function openHerb(name) {
+  const d = herbData[name];
+  if (!d) return;
+  document.getElementById('modal-emoji').textContent = d.emoji;
+  document.getElementById('modal-title').textContent = name + '（' + d.en + '）';
+  document.getElementById('modal-sub').textContent = d.effect;
+  document.getElementById('modal-content').innerHTML = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:1rem;">
+      <div style="background:var(--parchment); border-radius:6px; padding:10px;">
+        <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">藥材性味</div>
+        <div style="font-size:14px; font-weight:500;">${d.nature}</div>
+      </div>
+      <div style="background:var(--parchment); border-radius:6px; padding:10px;">
+        <div style="font-size:11px; color:var(--text-muted); margin-bottom:4px;">歸經</div>
+        <div style="font-size:14px; font-weight:500;">${d.meridian}</div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">用法與注意事項</div>
+      <div class="modal-section-body">${d.usage}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="modal-section">
+      <div class="modal-section-title">推薦食譜</div>
+      <div class="modal-tags">${d.recipes.map(r=>`<span class="modal-tag" style="cursor:pointer;" onclick="openRecipe('${r}')">${r}</span>`).join('')}</div>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+  window._currentItem = name;
+}
+
+function openConstitution(type) {
+  document.getElementById('modal-emoji').textContent = type.includes('氣虛') ? '😮‍💨' : type.includes('血虛') ? '🌸' : type.includes('濕熱') ? '🥵' : '🥶';
+  document.getElementById('modal-title').textContent = type;
+  document.getElementById('modal-sub').textContent = '針對此體質的食補建議';
+  const tips = {
+    '氣虛體質': '多食黃耆、黨參、紅棗、山藥、蓮子等，少吃生冷食物，忌過度勞累。每週可煮 2-3 次黃耆雞湯，搭配適量有氧運動效果更佳。',
+    '血虛體質': '多食當歸、熟地、桂圓、黑芝麻、紅豆等，避免辛辣刺激食物。可每週燉煮桂圓紅棗銀耳湯，睡前飲用助眠兼補血。',
+    '濕熱體質': '多食薏仁、菊花、蒲公英、綠豆，避免油炸、燒烤、甜食。可每日飲用薏仁水或菊花茶，清淡飲食為主。',
+    '陽虛體質': '多食肉桂、乾薑、羊肉、韭菜、核桃，避免生冷食物。可每天早晨喝一杯薑棗茶，注意保暖，避免受涼。',
+  };
+  document.getElementById('modal-content').innerHTML = `<div class="modal-section"><div class="modal-section-title">食補建議</div><div class="modal-section-body">${tips[type] || ''}</div></div>`;
+  document.getElementById('modal').classList.add('open');
+  window._currentItem = type;
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function askClaude() {
+  closeModal();
+  sendPrompt('請告訴我更多關於「' + (window._currentItem || '') + '」的中醫知識與日常應用方法');
+}
+
+function renderHerbLib(cat, query) {
+  const grid = document.getElementById('herb-lib-grid');
+  grid.innerHTML = '';
+  Object.entries(herbData).forEach(([name, d]) => {
+    if (cat !== 'all' && d.cat !== cat) return;
+    if (query && !name.includes(query) && !d.en.toLowerCase().includes(query.toLowerCase()) && !d.effect.includes(query)) return;
+    const card = document.createElement('div');
+    card.className = 'herb-card';
+    card.onclick = () => openHerb(name);
+    card.innerHTML = `<span class="herb-emoji">${d.emoji}</span><div class="herb-cn">${name}</div><div class="herb-en">${d.en}</div><span class="herb-effect">${d.effect.split('、')[0]}</span>`;
+    grid.appendChild(card);
+  });
+}
+
+function filterHerb(el, cat) {
+  document.querySelectorAll('#herb-filters .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  const q = document.querySelector('.search-bar') ? document.querySelector('.search-bar').value : '';
+  renderHerbLib(cat, q);
+  window._herbCat = cat;
+}
+
+function searchHerbs(q) {
+  renderHerbLib(window._herbCat || 'all', q);
+}
+
+function filterRecipe(el, cat) {
+  document.querySelectorAll('.season-banner .filter-btn, #page-recipes .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#recipe-full-grid .recipe-full-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+window._herbCat = 'all';
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
